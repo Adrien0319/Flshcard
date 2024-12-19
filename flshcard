@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+        }
+        main {
+            margin: 2rem;
+            width: 90%;
+            max-width: 600px;
+        }
+        .card {
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .button {
+            background-color: #6200ea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flashcard App</h1>
+    </header>
+    <main>
+        <div class="form-group">
+            <label for="question">Question:</label>
+            <input type="text" id="question" placeholder="Enter the question">
+        </div>
+        <div class="form-group">
+            <label for="answer">Answer:</label>
+            <textarea id="answer" placeholder="Enter the answer"></textarea>
+        </div>
+        <button class="button" id="add-card">Add Flashcard</button>
+
+        <div id="flashcards"></div>
+    </main>
+
+    <script>
+        const flashcardsContainer = document.getElementById('flashcards');
+        const questionInput = document.getElementById('question');
+        const answerInput = document.getElementById('answer');
+        const addCardButton = document.getElementById('add-card');
+
+        addCardButton.addEventListener('click', () => {
+            const question = questionInput.value;
+            const answer = answerInput.value;
+
+            if (question && answer) {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                const questionElement = document.createElement('p');
+                questionElement.textContent = `Q: ${question}`;
+
+                const answerElement = document.createElement('p');
+                answerElement.textContent = `A: ${answer}`;
+                answerElement.style.display = 'none';
+
+                card.appendChild(questionElement);
+                card.appendChild(answerElement);
+
+                card.addEventListener('click', () => {
+                    answerElement.style.display = 
+                        answerElement.style.display === 'none' ? 'block' : 'none';
+                });
+
+                flashcardsContainer.appendChild(card);
+
+                // Clear inputs
+                questionInput.value = '';
+                answerInput.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
